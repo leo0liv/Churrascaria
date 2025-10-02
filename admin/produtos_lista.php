@@ -3,9 +3,10 @@
 include("../Connections/conn_produtos.php");
 
 // Selecionar os dados
-$consulta   =   "SELECT  *
-                 FROM    tbprodutos
-                 ORDER BY descri_produto ASC;
+$consulta   =   "
+                SELECT  *
+                FROM    tbprodutos
+                ORDER BY descri_produto ASC;
                 ";
 // Fazer uma lista completa dos dados
 $lista      =   $conn_produtos->query($consulta);
@@ -42,7 +43,9 @@ $totalRows  =   ($lista)->num_rows;
                 <th>RESUMO</th>
                 <th>VALOR</th>
                 <th>IMAGEM</th>
-                <th>ADICIONAR</th>
+                <th>
+                    <a href="produtos_insere.php">ADICIONAR</a>
+                </th>
             </tr>
         </thead>
         <!-- tbody>tr>td*8 -->

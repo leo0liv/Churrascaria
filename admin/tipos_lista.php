@@ -2,10 +2,11 @@
 // Incluir o arquivo e fazer a conexão
 include("../Connections/conn_produtos.php");
 // Selecionar os dados
-$consulta   =   "SELECT *
-                 FROM tbtipos
-                 ORDER BY rotulo_tipo ASC;
-                 ";
+$consulta   =   "
+                SELECT *
+                FROM tbtipos
+                ORDER BY rotulo_tipo ASC;
+                ";
 // Fazer a lista completa dos dados
 $lista  =   $conn_produtos->query($consulta);
 // Separar os dados em linhas (row)
@@ -37,7 +38,9 @@ $totalRows  =   ($lista)->num_rows;
                     <th>ID</th>
                     <th>SIGLA</th>
                     <th>RÓTULO</th>
-                    <th>ADICIONAR</th>
+                    <th>
+                    <a href="tipos_insere.php">ADICIONAR</a>
+                </th>
                 </tr>
             </thead>
             <!-- tbody>tr>td*4 -->

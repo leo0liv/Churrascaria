@@ -2,7 +2,8 @@
 // Incluir o arquivo e fazer a conexão
 include("../Connections/conn_produtos.php");
 // Selecionar os dados
-$consulta  =   "SELECT *
+$consulta  =   "
+                SELECT *
                 FROM tbusuarios
                 ORDER BY login_usuario ASC;
                 ";
