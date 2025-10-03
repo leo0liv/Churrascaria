@@ -38,7 +38,9 @@ $totalRows  =   ($lista)->num_rows;
                     <th>ID</th>
                     <th>LOGIN</th>
                     <th>NÍVEL</th>
-                    <th>ADICIONAR</th>
+                    <th>
+                        <a href="usuarios_insere.php">ADICIONAR</a>
+                    </th>
                 </tr>
             </thead>
             <!-- tbody>tr>td*4 -->
