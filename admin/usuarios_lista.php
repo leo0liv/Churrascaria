@@ -21,25 +21,34 @@ $totalRows  =   ($lista)->num_rows;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários - Lista</title>
     <!-- Depois vamos inserir aqui o Bootstrap -->
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Depois vamos inserir o meu_estilo.css -->
+     <link rel="stylesheet" href="../css/meu_estilo.css">
 </head>
-<body>
+<body class="fundofixo">
+    <?php include("menu_adm.php");?>
     <!-- main>h1 -->
-    <main>
-        <h1>Lista de Usuários</h1>
-        <div>
+    <main class="container">
+        <h1 class="breadcrumb alert-info">Lista de Usuários</h1>
+        <div class="btn btn-info disabled">
             Total de Usuários
-            <small><?php echo $totalRows; ?></small>
+            <small class="badge"><?php echo $totalRows; ?></small>
         </div>
         <!-- table>thead>tr>th*8 -->
-        <table border="1">
+        <table class="table table-hover table-condensed tbopacidade">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <!-- <th>ID</th> -->
                     <th>LOGIN</th>
                     <th>NÍVEL</th>
                     <th>
-                        <a href="usuarios_insere.php">ADICIONAR</a>
+                        <a 
+                            href="usuarios_insere.php"
+                            class="btn btn-block btn-primary btn-xs"
+                        >
+                            <span class="hidden-xs">ADICIONAR <br></span>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
                     </th>
                 </tr>
             </thead>
@@ -48,15 +57,40 @@ $totalRows  =   ($lista)->num_rows;
                 <!-- Abre a estrutura de repetição -->
                  <?php do{ ?>
                 <tr>
-                    <td><?php echo $row['id_usuario']; ?></td>
+                    <!-- <td><?php echo $row['id_usuario']; ?></td> -->
                     <td><?php echo $row['login_usuario']; ?></td>
-                    <td><?php echo $row['nivel_usuario']; ?></td>
-                    <td>ALTERAR|EXCLUIR</td>
+                    <td>
+                        <?php 
+                            if($row['nivel_usuario']=='sup'){
+                                echo('<span class="glyphicon glyphicon-sunglasses text-black"></span>&nbsp;sup');
+                            }else if($row['nivel_usuario']=='com'){
+                                echo('<span class="glyphicon glyphicon-user text-info"></span>&nbsp;com');
+                            };
+                        ?>
+                    </td>
+                    <td>
+                        <a 
+                            href="usuarios_atualiza.php"
+                            class="btn btn-warning btn-xs btn-block"
+                        >
+                            <span class="hidden-xs">ALTERAR<br></span>
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </a>
+                        <button 
+                            class="btn btn-danger btn-xs btn-block"
+                        >
+                            <span class="hidden-xs">EXCLUIR<br></span>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </td>
                 </tr>
                 <?php }while($row = $lista->fetch_assoc()); ?>
                 <!-- Fecha a estrutura de rapetição -->
             </tbody>
         </table>
     </main>
+<!-- Link arquivos Bootstrap js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>    
 </body>
 </html>
