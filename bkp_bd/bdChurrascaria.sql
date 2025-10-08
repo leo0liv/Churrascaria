@@ -106,3 +106,19 @@ ALTER TABLE tbprodutos
         REFERENCES tbtipos(id_tipo)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION;
+
+-- ----- VIEW ------
+-- Criando a view vw_tbprodutos
+CREATE VIEW vw_tbprodutos as 
+    SELECT  p.id_produto,
+            p.id_tipo_produto,
+            t.sigla_tipo,
+            t.rotulo_tipo,
+            p.descri_produto,
+            p.resumo_produto,
+            p.valor_produto,
+            p.imagem_produto,
+            p.destaque_produto
+    FROM    tbprodutos p JOIN tbtipos t
+    WHERE   p.id_tipo_produto=t.id_tipo;
+
