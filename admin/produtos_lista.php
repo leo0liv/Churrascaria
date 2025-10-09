@@ -98,7 +98,11 @@ $totalRows  =   ($lista)->num_rows;
                         <span class="hidden-xs">ALTERAR<br></span>
                         <span class="glyphicon glyphicon-refresh"></span>
                     </a>
-                    <button class="btn btn-danger btn-xs btn-block">
+                    <button 
+                        data-id="<?php echo $row['id_produto']; ?>"
+                        data-nome="<?php echo $row['descri_produto']; ?>"
+                        class="btn btn-danger btn-xs btn-block delete"
+                    >
                         <span class="hidden-xs">EXCLUIR<br></span>
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
@@ -109,9 +113,60 @@ $totalRows  =   ($lista)->num_rows;
         </tbody>
     </table>
 </main>
+
+<!-- Modal -->
+ <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                >
+                    &times;
+                </button>
+                <h4 class="modal-title text-danger">ATENÇÃO</h4>
+            </div> <!-- fecha modal-header -->
+            <div class="modal-body">
+                Deseja mesmo EXCLUIR o item?
+                <h4><span class="nome text-danger"></span></h4>
+
+            </div> <!-- fecha modal-body -->
+            <div class="modal-footer">
+                <a 
+                    href="#" 
+                    type="button" 
+                    class="btn btn-danger delete-yes"
+                >
+                    Confirmar
+                </a>
+                <button class="btn btn-success" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div> <!-- fecha modal-footer -->
+        </div> <!-- fecha modal-content -->
+    </div> <!-- fecha modal-dialog -->
+ </div> <!-- fecha modal -->
+
     <!-- Link arquivos Bootstrap js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    
+    <!-- Script para o modal -->
+    <script type="text/javascript">
+        $('.delete').on('click',function(){
+            var nome    =   $(this).data('nome');
+            // buscar o valor do atributo data-nome
+            var id    =   $(this).data('id');
+            // buscar o valor do atributo data-id
+            $('span.nome').text(nome);
+            // Inserir o nome do item na pergunta de confirmação
+            $('a.delete-yes').attr('href','produtos_exclui.php?id_produto='+id);
+            // mudar dinamicamente o id do link no botão confirmar
+            $('#myModal').modal('show'); // abre modal
+        });
+    </script>
 </body>
 </html>
 <?php mysqli_free_result($lista); ?>

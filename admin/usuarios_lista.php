@@ -29,65 +29,67 @@ $totalRows  =   ($lista)->num_rows;
     <?php include("menu_adm.php");?>
     <!-- main>h1 -->
     <main class="container">
-        <h1 class="breadcrumb alert-info">Lista de Usuários</h1>
-        <div class="btn btn-info disabled">
-            Total de Usuários
-            <small class="badge"><?php echo $totalRows; ?></small>
-        </div>
-        <!-- table>thead>tr>th*8 -->
-        <table class="table table-hover table-condensed tbopacidade">
-            <thead>
-                <tr>
-                    <!-- <th>ID</th> -->
-                    <th>LOGIN</th>
-                    <th>NÍVEL</th>
-                    <th>
-                        <a 
-                            href="usuarios_insere.php"
-                            class="btn btn-block btn-primary btn-xs"
-                        >
-                            <span class="hidden-xs">ADICIONAR <br></span>
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </a>
-                    </th>
-                </tr>
-            </thead>
-            <!-- tbody>tr>td*4 -->
-            <tbody>
-                <!-- Abre a estrutura de repetição -->
-                 <?php do{ ?>
-                <tr>
-                    <!-- <td><?php echo $row['id_usuario']; ?></td> -->
-                    <td><?php echo $row['login_usuario']; ?></td>
-                    <td>
-                        <?php 
-                            if($row['nivel_usuario']=='sup'){
-                                echo('<span class="glyphicon glyphicon-sunglasses text-black"></span>&nbsp;sup');
-                            }else if($row['nivel_usuario']=='com'){
-                                echo('<span class="glyphicon glyphicon-user text-info"></span>&nbsp;com');
-                            };
-                        ?>
-                    </td>
-                    <td>
-                        <a 
-                            href="usuarios_atualiza.php"
-                            class="btn btn-warning btn-xs btn-block"
-                        >
-                            <span class="hidden-xs">ALTERAR<br></span>
-                            <span class="glyphicon glyphicon-refresh"></span>
-                        </a>
-                        <button 
-                            class="btn btn-danger btn-xs btn-block"
-                        >
-                            <span class="hidden-xs">EXCLUIR<br></span>
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </td>
-                </tr>
-                <?php }while($row = $lista->fetch_assoc()); ?>
-                <!-- Fecha a estrutura de rapetição -->
-            </tbody>
-        </table>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"> <!-- Abre dimensionamento -->
+            <h1 class="breadcrumb alert-info">Lista de Usuários</h1>
+            <div class="btn btn-info disabled">
+                Total de Usuários
+                <small class="badge"><?php echo $totalRows; ?></small>
+            </div>
+            <!-- table>thead>tr>th*8 -->
+            <table class="table table-hover table-condensed tbopacidade">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>LOGIN</th>
+                        <th>NÍVEL</th>
+                        <th>
+                            <a 
+                                href="usuarios_insere.php"
+                                class="btn btn-block btn-primary btn-xs"
+                            >
+                                <span class="hidden-xs">ADICIONAR <br></span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <!-- tbody>tr>td*4 -->
+                <tbody>
+                    <!-- Abre a estrutura de repetição -->
+                    <?php do{ ?>
+                    <tr>
+                        <!-- <td><?php echo $row['id_usuario']; ?></td> -->
+                        <td><?php echo $row['login_usuario']; ?></td>
+                        <td>
+                            <?php 
+                                if($row['nivel_usuario']=='sup'){
+                                    echo('<span class="glyphicon glyphicon-sunglasses text-black"></span>&nbsp;sup');
+                                }else if($row['nivel_usuario']=='com'){
+                                    echo('<span class="glyphicon glyphicon-user text-info"></span>&nbsp;com');
+                                };
+                            ?>
+                        </td>
+                        <td>
+                            <a 
+                                href="usuarios_atualiza.php"
+                                class="btn btn-warning btn-xs btn-block"
+                            >
+                                <span class="hidden-xs">ALTERAR<br></span>
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </a>
+                            <button 
+                                class="btn btn-danger btn-xs btn-block"
+                            >
+                                <span class="hidden-xs">EXCLUIR<br></span>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <?php }while($row = $lista->fetch_assoc()); ?>
+                    <!-- Fecha a estrutura de rapetição -->
+                </tbody>
+            </table>
+        </div><!-- Fecha dimensionamento -->
     </main>
 <!-- Link arquivos Bootstrap js -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
