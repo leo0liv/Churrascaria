@@ -39,7 +39,7 @@ $totalRows  =   ($lista)->num_rows;
             <table class="table table-hover table-condensed tbopacidade" >
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th class="hidden">ID</th>
                     <th>SIGLA</th>
                     <th>RÓTULO</th>
                     <th>
@@ -57,7 +57,7 @@ $totalRows  =   ($lista)->num_rows;
             <tbody>
                 <?php do{ ?><!-- Abre a estrutura de repetição -->
                 <tr>
-                    <td><?php echo $row['id_tipo']; ?></td>
+                    <td class="hidden"><?php echo $row['id_tipo']; ?></td>
                     <td><?php echo $row['sigla_tipo']; ?></td>
                     <td><?php echo $row['rotulo_tipo']; ?></td>
                     <td>
@@ -86,9 +86,55 @@ $totalRows  =   ($lista)->num_rows;
         </div> <!-- fecha dimensionamento -->
 </main>
 
+<!-- Modal -->
+ <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title text-danger">ATENÇÃO</h4>
+            </div> <!-- fecha modal-header -->
+            <div class="modal-body">
+                Deseja mesmo EXCLUIR o item?
+                <h4><span class="nome text-danger"></span></h4>
+            </div> <!-- fecha modal-body -->
+            <div class="modal-footer">
+                <a 
+                    href="#"
+                    type="button"
+                    class="btn btn-danger delete-yes"
+                >
+                    Confirmar
+                </a>
+                <button class="btn btn-success" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div> <!-- fecha modal-footer -->
+        </div> <!-- fecha modal-content -->
+    </div> <!-- fecha modal-dialog -->
+ </div> <!-- fecha myModal -->
+
 <!-- Link arquivos Bootstrap js -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>    
+<script src="../js/bootstrap.min.js"></script>
+
+<!-- script para o modal -->
+ <script type="text/javascript">
+    $('.delete').on('click',function(){
+        var nome    =   $(this).data('nome');
+        // buscar valor do atributo data-nome
+        var id    =   $(this).data('id');
+        // buscar valor do atributo data-nome
+        $('span.nome').text(nome);
+        // Inserir o nome do item no modal
+        $('a.delete-yes').attr('href','tipos_exclui.php?id_tipo='+id);
+        // mudar dinamicamente o id do link no botão confirmar
+
+        $('#myModal').modal('show'); // Abre modal
+    });
+ </script>
 </body>
 </html>
 <?php mysqli_free_result($lista); ?>
