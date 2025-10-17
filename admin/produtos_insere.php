@@ -67,13 +67,13 @@ $totalRows_fk   =   ($lista_fk)->num_rows;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo</title>
+    <title>Produtos - Insere</title>
     <!-- CSS do Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Link para CSS Específico -->
     <link rel="stylesheet" href="../css/meu_estilo.css">
 </head>
-<body>
+<body class="fundofixo">
     <main class="container">
         <div> <!-- Abre row -->
             <div class="col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4"> <!-- Abre dimensionamento -->

@@ -71,8 +71,11 @@ $totalRows  =   ($lista)->num_rows;
                         </td>
                         <td>
                             <a 
-                                href="usuarios_atualiza.php"
+                                href="usuarios_atualiza.php?id_usuario=<?php echo $row['id_usuario']; ?>"
                                 class="btn btn-warning btn-xs btn-block"
+                                target="_self"
+                                role="button"
+
                             >
                                 <span class="hidden-xs">ALTERAR<br></span>
                                 <span class="glyphicon glyphicon-refresh"></span>

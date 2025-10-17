@@ -2,29 +2,30 @@
 //Incluir o arquivo e fazer a conexão
 include("../Connections/conn_produtos.php");
 
+//Variáveis Globais
+$tabela         =   "tbtipos";
+$campo_filtro   =   "id_tipo";
+
+
 if($_POST){
     // Selecionar o banco de dados (USE)
     mysqli_select_db($conn_produtos,$database_conn);
-
-    // Declarar Variáveis para acrescentar dados no banco
-    $tabela_insert  =   "tbtipos";
-    $campos_insert  =   "rotulo_tipo, sigla_tipo";
-    
+ 
     // Receber os dados do formulário
     // Organizar os campos na mesma ordem
     $rotulo_tipo    =   $_POST['rotulo_tipo'];
     $sigla_tipo   =   $_POST['sigla_tipo'];
 
-    // Reunir os valores a serem inseridos
-    $valores_insert =   "'$rotulo_tipo','$sigla_tipo'";
+    //campo para filtrar o registro (WHERE)
+    $filtro_update  =   $_POST['id_tipo'];
 
     // Consulta SQL para inserção dos dados
-    $insertSQL  =   "INSERT INTO ".$tabela_insert."
-                        (".$campos_insert.")
-                     VALUE
-                        (".$valores_insert.")
+    $updateSQL  =   "UPDATE ".$tabela."
+                        SET sigla_tipo  =   '".$sigla_tipo."',
+                            rotulo_tipo =   '".$rotulo_tipo."'
+                     WHERE  ".$campo_filtro."='".$filtro_update."';
                     ";
-    $resultado  =   $conn_produtos->query($insertSQL);
+    $resultado  =   $conn_produtos->query($updateSQL);
 
     // Após a ação a página será redirecionada
     $destino    =   "tipos_lista.php";
@@ -34,6 +35,20 @@ if($_POST){
         header("Location: $destino");
     };
 };
+
+
+//consulta para trazer e filtrar os dados
+//Definir o USE do banco de dados
+mysqli_select_db($conn_produtos,$database_conn);
+$filtro_select  =   $_GET['id_tipo'];
+$consulta       =   "SELECT *
+                     FROM   ".$tabela."
+                     WHERE  ".$campo_filtro."=".$filtro_select.";
+                    ";
+$lista          =   $conn_produtos->query($consulta);
+$row            =   $lista->fetch_assoc();
+$totalRows      =   ($lista)->num_rows;
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,7 +56,7 @@ if($_POST){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tipo - insere</title>
+    <title>Tipo - Atualiza</title>
     <!-- CSS do Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Link para CSS Específico -->
@@ -60,17 +75,25 @@ if($_POST){
                             <span class="glyphicon glyphicon-chevron-left"></span>
                         </button>
                     </a>
-                    Inserindo Tipo
+                    Atualiza Tipo
                 </h2>
                 <div class="thumbnail">
                     <div class="alert alert-warning">
                         <form 
-                            action="tipos_insere.php"
-                            name="form_insere_tipo"
-                            id="form_insere_tipo"
+                            action="tipos_atualiza.php"
+                            name="form_atualiza_tipo"
+                            id="form_atualiza_tipo"
                             method="post"
                             enctype="multipart/form-data"
                         >
+                            <!-- Inserir campo id_tipo OCULTO para uso em filtro -->
+                             <input 
+                                type="hidden"
+                                name="id_tipo"
+                                id="id_tipo"
+                                value="<?php echo $row['id_tipo']; ?>"
+                             >
+
                             <!-- input text rotulo_tipo -->
                             <label for="rotulo_tipo">Rótulo:</label>
                             <div class="input-group">
@@ -86,6 +109,7 @@ if($_POST){
                                     maxlength="15"
                                     required
                                     placeholder="Digite o rótulo do tipo."
+                                    value="<?php echo $row['rotulo_tipo']; ?>"
                                 >
                             </div> <!-- fecha input-group -->
                             <!-- fecha text rotulo_tipo -->
@@ -105,6 +129,7 @@ if($_POST){
                                     maxlength="3"
                                     required
                                     placeholder="Digite a sigla do tipo."
+                                    value="<?php echo $row['sigla_tipo']; ?>"
                                 >
                             </div> <!-- fecha input-group -->
                             <!-- fecha text sigla_tipo -->
@@ -113,7 +138,7 @@ if($_POST){
                             <!-- btn enviar -->
                             <input 
                                 type="submit"
-                                value="Cadastrar"
+                                value="Atualizar"
                                 name="enviar"
                                 id="enviar"
                                 role="button"
@@ -134,3 +159,4 @@ if($_POST){
 </body>
 
 </html>
+<?php mysqli_free_result($lista); ?>
