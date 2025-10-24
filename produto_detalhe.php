@@ -4,9 +4,9 @@ include("Connections/conn_produtos.php");
 
 // Consulta para trazer os dados e SE necessário filtrar
 $tabela         =   "vw_tbprodutos";
-$campo_filtro   =   "destaque_produto";
+$campo_filtro   =   "id_produto";
 $ordenar_por    =   "descri_produto ASC";
-$filtro_select  =   "Não";
+$filtro_select  =   $_GET['id_produto'];
 $consulta       =   "SELECT  *
                      FROM    ".$tabela."
                      WHERE   ".$campo_filtro."='".$filtro_select."'
@@ -28,23 +28,24 @@ $totalRows  =   ($lista)->num_rows;
     <link rel="stylesheet" href="css/meu_estilo.css">
 </head>
 <body class="container">
-<h2 class="breadcrumb alert-danger">Produtos</h2>
+<h2 class="breadcrumb alert-danger">
+    <a href="javascript:window.history.go(-1)" class="btn btn-danger">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        
+    </a>
+    <strong><?php echo $row['descri_produto']; ?></strong>
+</h2>
 <div class="row"> <!-- manter os elementos na linha (poliça) -->
     
     <!-- Abre thumbnail/card -->
     <?php do{ ?> <!-- Abre a estrutura de repetição -->
-    <div class="col-sm-6 col-md-4"> <!-- dimensionamento -->
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"> <!-- dimensionamento -->
         <div class="thumbnail">
-            <a 
-                href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
-            >
                 <img 
                     src="imagens/<?php echo $row['imagem_produto']; ?>" 
                     alt=""
                     class="img-responsive img-rounded"
-                    style="height: 20em;"
                 >
-            </a>
             <div class="caption text-right">
                 <h3 class="text-danger">
                     <strong><?php echo $row['descri_produto']; ?></strong>
@@ -53,20 +54,20 @@ $totalRows  =   ($lista)->num_rows;
                     <strong><?php echo $row['rotulo_tipo']; ?></strong>
                 </p>
                 <p class="text-left">
-                    <?php echo mb_strimwidth($row['resumo_produto'],0,42,"..."); ?>
+                    <?php echo $row['resumo_produto']; ?>
                 </p>
                 <p>
                     <button class="btn btn-default disabled" role="button">
                         <?php echo number_format($row['valor_produto'],2,',','.'); ?>
                     </button>
-                    <a 
+                    <!-- <a 
                        href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
                        class="btn btn-danger" 
                        role="button"
                     >
                         <span class="hidden-xs">Saiba mais...</span>
                         <span class="visible-xs glyphicon glyphicon-eye-open"></span>
-                    </a>
+                    </a> -->
                 </p>
             </div> <!-- fecha caption -->
         </div> <!-- fecha thumbnail -->
