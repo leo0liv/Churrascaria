@@ -4,12 +4,10 @@ include("Connections/conn_produtos.php");
 
 // Consulta para trazer os dados e SE necessário filtrar
 $tabela         =   "vw_tbprodutos";
-$campo_filtro   =   "destaque_produto";
-$ordenar_por    =   "descri_produto ASC";
-$filtro_select  =   "Não";
+$ordenar_por    =   "rotulo_tipo ASC, descri_produto ASC";
+
 $consulta       =   "SELECT  *
                      FROM    ".$tabela."
-                     WHERE   ".$campo_filtro."='".$filtro_select."'
                      ORDER BY ".$ordenar_por.";
                     ";
 $lista      =   $conn_produtos->query($consulta);
@@ -21,18 +19,39 @@ $totalRows  =   ($lista)->num_rows;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto - geral</title>
+    <title>Produtos - tipos</title>
     <!-- Link CSS do Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Link para CSS Específico -->
     <link rel="stylesheet" href="css/meu_estilo.css">
 </head>
 <body class="container">
-<h2 class="breadcrumb alert-danger">Produtos</h2>
-<div class="row"> <!-- manter os elementos na linha (poliça) -->
-    
+<h2 class="breadcrumb alert-danger">
+    <a href="javascript:window.history.go(-1)" class="btn btn-danger">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    Produtos por Tipo
+</h2>
+
+<?php
+// Variável para controlar o grupo atual
+$tipo_atual =   "";
+if($totalRows > 0){ // Verifica se há produtos para exibir
+    do{
+        // se o id_tipo_produto atual for diferente do anterior, cria um novo grupo
+        if($tipo_atual != $row['id_tipo_produto']){
+            // se não for o primeiro grupo, fecha row anterior
+            if($tipo_atual != ""){
+                echo '</div>';
+            }
+            //atualiza $tipo_atual e exibe o novo cabeçalho do grupo
+            $tipo_atual = $row['id_tipo_produto'];
+            echo '<h2 class="breadcrumb alert-warning">'.$row['rotulo_tipo'].'</h2>';
+            // abre uma nova div row para os produtos deste grupo
+            echo '<div class="row"> <!-- manter os elementos na linha (Poliça)  -->'; 
+        }
+?>
     <!-- Abre thumbnail/card -->
-    <?php do{ ?> <!-- Abre a estrutura de repetição -->
     <div class="col-sm-6 col-md-4"> <!-- dimensionamento -->
         <div class="thumbnail">
             <a 
@@ -71,9 +90,17 @@ $totalRows  =   ($lista)->num_rows;
             </div> <!-- fecha caption -->
         </div> <!-- fecha thumbnail -->
     </div> <!-- fecha dimensionamento -->
-    <?php }while($row=$lista->fetch_assoc()); ?> 
-    <!-- Fecha a estrutura de repetição -->
-    <!-- Fecha thumbnail/card -->
+    <?php 
+        }while($row=$lista->fetch_assoc()); 
+
+        
+        // é importante fechar a última div row que ficou aberta após o loop
+        echo '</div> <!-- fecha row -->';
+        }else{
+            // Mensagem caso não haja produtos
+            echo '<div class="alert-warning role="alert">Nenhum produto encontrado.</div>';
+        }
+    ?>
 
 </div> <!-- fecha row -->
 
