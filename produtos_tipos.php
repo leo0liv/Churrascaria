@@ -28,92 +28,95 @@ $totalRows  =   ($lista)->num_rows;
 <body class="fundofixo">
 <!-- MENU -->
 <?php include('menu_publico.php'); ?>
-<main class="container">
 <!-- CARROUSSEL -->
-<?php include('carroussel.php'); ?>
-
-<h2 class="breadcrumb alert-danger">
-    <a href="javascript:window.history.go(-1)" class="btn btn-danger">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    Produtos por Tipo
-</h2>
-
-<?php
-// Variável para controlar o grupo atual
-$tipo_atual =   "";
-if($totalRows > 0){ // Verifica se há produtos para exibir
-    do{
-        // se o id_tipo_produto atual for diferente do anterior, cria um novo grupo
-        if($tipo_atual != $row['id_tipo_produto']){
-            // se não for o primeiro grupo, fecha row anterior
-            if($tipo_atual != ""){
-                echo '</div>';
-            }
-            //atualiza $tipo_atual e exibe o novo cabeçalho do grupo
-            $tipo_atual = $row['id_tipo_produto'];
-            echo '<h2 class="breadcrumb alert-warning">'.$row['rotulo_tipo'].'</h2>';
-            // abre uma nova div row para os produtos deste grupo
-            echo '<div class="row"> <!-- manter os elementos na linha (Poliça)  -->'; 
-        }
-?>
-    <!-- Abre thumbnail/card -->
-    <div class="col-sm-6 col-md-4"> <!-- dimensionamento -->
-        <div class="thumbnail">
-            <a 
-                href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
-            >
-                <img 
-                    src="imagens/<?php echo $row['imagem_produto']; ?>" 
-                    alt=""
-                    class="img-responsive img-rounded"
-                    style="height: 20em;"
-                >
+<?php include('carrousel.php'); ?>
+<main class="container">
+    <section>
+        <h2 class="breadcrumb alert-danger">
+            <a href="javascript:window.history.go(-1)" class="btn btn-danger">
+                <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <div class="caption text-right">
-                <h3 class="text-danger">
-                    <strong><?php echo $row['descri_produto']; ?></strong>
-                </h3>
-                <p class="text-warning">
-                    <strong><?php echo $row['rotulo_tipo']; ?></strong>
-                </p>
-                <p class="text-left">
-                    <?php echo mb_strimwidth($row['resumo_produto'],0,42,"..."); ?>
-                </p>
-                <p>
-                    <button class="btn btn-default disabled" role="button">
-                        <?php echo number_format($row['valor_produto'],2,',','.'); ?>
-                    </button>
-                    <a 
-                       href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
-                       class="btn btn-danger" 
-                       role="button"
-                    >
-                        <span class="hidden-xs">Saiba mais...</span>
-                        <span class="visible-xs glyphicon glyphicon-eye-open"></span>
-                    </a>
-                </p>
-            </div> <!-- fecha caption -->
-        </div> <!-- fecha thumbnail -->
-    </div> <!-- fecha dimensionamento -->
-    <?php 
-        }while($row=$lista->fetch_assoc()); 
+            Produtos por Tipo
+        </h2>
 
-        
-        // é importante fechar a última div row que ficou aberta após o loop
-        echo '</div> <!-- fecha row -->';
-        }else{
-            // Mensagem caso não haja produtos
-            echo '<div class="alert-warning role="alert">Nenhum produto encontrado.</div>';
-        }
-    ?>
-        <!-- RODAPÉ -->
-        <footer>
-            <?php include('rodape.php'); ?>
-            <a name="contato"></a>
-        </footer>
-    </main>
-</div> <!-- fecha row -->
+        <?php
+        // Variável para controlar o grupo atual
+        $tipo_atual =   "";
+        if($totalRows > 0){ // Verifica se há produtos para exibir
+            do{
+                // se o id_tipo_produto atual for diferente do anterior, cria um novo grupo
+                if($tipo_atual != $row['id_tipo_produto']){
+                    // se não for o primeiro grupo, fecha row anterior
+                    if($tipo_atual != ""){
+                        echo '</div>';
+                    }
+                    //atualiza $tipo_atual e exibe o novo cabeçalho do grupo
+                    $tipo_atual = $row['id_tipo_produto'];
+                    echo '<h2 class="breadcrumb alert-warning">'.$row['rotulo_tipo'].'</h2>';
+                    // abre uma nova div row para os produtos deste grupo
+                    echo '<div class="row"> <!-- manter os elementos na linha (Poliça)  -->'; 
+                }
+        ?>
+            <!-- Abre thumbnail/card -->
+            <div class="col-sm-6 col-md-4"> <!-- dimensionamento -->
+                <div class="thumbnail">
+                    <a 
+                        href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
+                    >
+                        <img 
+                            src="imagens/<?php echo $row['imagem_produto']; ?>" 
+                            alt=""
+                            class="img-responsive img-rounded"
+                            style="height: 20em;"
+                        >
+                    </a>
+                    <div class="caption text-right">
+                        <h3 class="text-danger">
+                            <strong><?php echo $row['descri_produto']; ?></strong>
+                        </h3>
+                        <p class="text-warning">
+                            <strong><?php echo $row['rotulo_tipo']; ?></strong>
+                        </p>
+                        <p class="text-left">
+                            <?php echo mb_strimwidth($row['resumo_produto'],0,42,"..."); ?>
+                        </p>
+                        <p>
+                            <button class="btn btn-default disabled" role="button">
+                                <?php echo number_format($row['valor_produto'],2,',','.'); ?>
+                            </button>
+                            <a 
+                            href="produto_detalhe.php?id_produto=<?php echo $row['id_produto']; ?>" 
+                            class="btn btn-danger" 
+                            role="button"
+                            >
+                                <span class="hidden-xs">Saiba mais...</span>
+                                <span class="visible-xs glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </p>
+                    </div> <!-- fecha caption -->
+                </div> <!-- fecha thumbnail -->
+            </div> <!-- fecha dimensionamento -->
+            <?php 
+                }while($row=$lista->fetch_assoc()); 
+
+                
+                // é importante fechar a última div row que ficou aberta após o loop
+                echo '</div> <!-- fecha row -->';
+                }else{
+                    // Mensagem caso não haja produtos
+                    echo '<div class="alert-warning role="alert">Nenhum produto encontrado.</div>';
+                }
+            ?>
+                
+            
+        </div> <!-- fecha row -->   
+    </section>
+    <!-- RODAPÉ -->
+    <footer>
+        <?php include('rodape.php'); ?>
+        <a name="contato"></a>
+    </footer>
+</main>
 
 <!-- Link arquivos Bootstrap js 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
