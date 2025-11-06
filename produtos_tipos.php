@@ -20,12 +20,18 @@ $totalRows  =   ($lista)->num_rows;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - tipos</title>
-    <!-- Link CSS do Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Link para CSS Específico -->
-    <link rel="stylesheet" href="css/meu_estilo.css">
+    <!-- Link CSS do Bootstrap 
+    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <!-- Link para CSS Específico 
+    <link rel="stylesheet" href="css/meu_estilo.css">-->
 </head>
-<body class="container">
+<body class="fundofixo">
+<!-- MENU -->
+<?php include('menu_publico.php'); ?>
+<main class="container">
+<!-- CARROUSSEL -->
+<?php include('carroussel.php'); ?>
+
 <h2 class="breadcrumb alert-danger">
     <a href="javascript:window.history.go(-1)" class="btn btn-danger">
         <span class="glyphicon glyphicon-chevron-left"></span>
@@ -101,12 +107,17 @@ if($totalRows > 0){ // Verifica se há produtos para exibir
             echo '<div class="alert-warning role="alert">Nenhum produto encontrado.</div>';
         }
     ?>
-
+        <!-- RODAPÉ -->
+        <footer>
+            <?php include('rodape.php'); ?>
+            <a name="contato"></a>
+        </footer>
+    </main>
 </div> <!-- fecha row -->
 
-<!-- Link arquivos Bootstrap js -->
+<!-- Link arquivos Bootstrap js 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>    
+<script src="js/bootstrap.min.js"></script> -->   
 </body>
 </html>
 <?php mysqli_free_result($lista); ?>

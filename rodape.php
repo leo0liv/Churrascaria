@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rodape</title>
-    <!-- Link CSS do Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Link para CSS Específico -->
-    <link rel="stylesheet" href="css/meu_estilo.css">
+    <!-- Link CSS do Bootstrap 
+    <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <!-- Link para CSS Específico 
+    <link rel="stylesheet" href="css/meu_estilo.css"> -->
+    
 </head>
 <body class="fundofixo">
 <div class="row panel-footer" style="background-color: rgba(255, 255, 255, 0.6);"> <!-- Abre painel de rodapé -->
@@ -129,8 +130,8 @@
                             <span class="glyphicon glyphicon-pencil"></span>
                         </span>
                         <textarea 
-                            name="text_contato"
-                            id="text_contato"
+                            name="comentarios_contato"
+                            id="comentarios_contato"
                             class="form-control"
                             placeholder="Comentário, dúvidas e/ou sugestões."
                             aria-describedby="basic-addon3"
@@ -141,7 +142,7 @@
                     </div> <!-- fecha input-group -->
                 </p>
                 <!-- contrua o botão enviar use glyphicon-send -->
-                <button class="btn btn-danger btn-block">
+                <button class="btn btn-danger btn-block" aria-label="Enviar">
                     Enviar
                     <span class="glyphicon glyphicon-send"></span>
                 </button>
@@ -165,8 +166,8 @@
 
 </div> <!-- fecha painel de rodapé -->
 
-<!-- Link arquivos Bootstrap js -->
+<!-- Link arquivos Bootstrap js 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>    
+<script src="js/bootstrap.min.js"></script> -->   
 </body>
 </html>

@@ -28,7 +28,7 @@ $totalRows_destaque  =   ($lista_destaque)->num_rows;
     <link rel="stylesheet" href="css/meu_estilo.css">
 </head>
 <body class="container">
-<h2 class="breadcrumb alert-danger">Produtos</h2>
+<h2 class="breadcrumb alert-danger">Destaques</h2>
 <div class="row"> <!-- manter os elementos na linha (poliça) -->
     
     <!-- Abre thumbnail/card -->
